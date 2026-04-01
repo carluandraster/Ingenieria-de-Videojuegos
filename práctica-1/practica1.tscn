@@ -4,7 +4,18 @@
 [ext_resource type="Script" uid="uid://bj03v7lq32mrf" path="res://global.gd" id="1_e371r"]
 [ext_resource type="Script" uid="uid://c2av4nuu6x0ks" path="res://pelota.gd" id="2_ao2a5"]
 [ext_resource type="Texture2D" uid="uid://ctajpgrv8urj5" path="res://arco.png" id="3_j3hdo"]
-[ext_resource type="Script" uid="uid://dsdf84q2ooahn" path="res://línea_de_gol.gd" id="5_enakv"]
+[ext_resource type="Script" uid="uid://d1ndce5jryp5p" path="res://zona_de_gol.gd" id="5_hw7rr"]
+[ext_resource type="Texture2D" uid="uid://c5efn4pu86jxc" path="res://cielo.jpeg" id="6_hw7rr"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_e371r"]
+size = Vector2(165, 15.102997)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_enakv"]
+size = Vector2(13, 328.33557)
+
+[sub_resource type="SegmentShape2D" id="SegmentShape2D_j3hdo"]
+a = Vector2(958, 719)
+b = Vector2(950, 402)
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_ao2a5"]
 friction = 0.1
@@ -16,18 +27,13 @@ load_path = "res://.godot/imported/ball.png-9a4ca347acb7532f6ae347744a6b04f7.cte
 [sub_resource type="CircleShape2D" id="CircleShape2D_6m3l7"]
 radius = 39.051247
 
-[sub_resource type="SegmentShape2D" id="SegmentShape2D_j3hdo"]
-a = Vector2(958, 719)
-b = Vector2(950, 402)
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_e371r"]
-size = Vector2(165, 15.102997)
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_enakv"]
-size = Vector2(13, 328.33557)
-
 [node name="Node2D" type="Node2D" unique_id=798115527]
 script = ExtResource("1_e371r")
+
+[node name="Fondo" type="Sprite2D" parent="." unique_id=1681023599]
+position = Vector2(546.25006, 482.00006)
+scale = Vector2(10.427336, 9.508572)
+texture = ExtResource("6_hw7rr")
 
 [node name="Plataforma" parent="." unique_id=429921292 instance=ExtResource("1_6m3l7")]
 position = Vector2(1, 399)
@@ -37,6 +43,30 @@ position = Vector2(439, 155)
 
 [node name="Plataforma" parent="Plataforma/Plataforma" unique_id=1966228108 instance=ExtResource("1_6m3l7")]
 position = Vector2(494, 217)
+
+[node name="Arco" type="StaticBody2D" parent="." unique_id=2023862155]
+
+[node name="Sprite2D" type="Sprite2D" parent="Arco" unique_id=1571050628]
+position = Vector2(991, 556)
+scale = Vector2(0.12203479, 0.13958333)
+texture = ExtResource("3_j3hdo")
+
+[node name="Travesaño" type="CollisionShape2D" parent="Arco" unique_id=1059848623]
+position = Vector2(956, 399.50003)
+rotation = 0.069813155
+shape = SubResource("RectangleShape2D_e371r")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Arco" unique_id=573582800]
+position = Vector2(1069.3862, 563.52203)
+rotation = -0.20943952
+scale = Vector2(0.99999994, 0.99999994)
+shape = SubResource("RectangleShape2D_enakv")
+
+[node name="Zona de gol" type="Area2D" parent="Arco" unique_id=1925079199]
+script = ExtResource("5_hw7rr")
+
+[node name="Línea de gol" type="CollisionShape2D" parent="Arco/Zona de gol" unique_id=481184479]
+shape = SubResource("SegmentShape2D_j3hdo")
 
 [node name="Pelota" type="RigidBody2D" parent="." unique_id=1070734756]
 physics_material_override = SubResource("PhysicsMaterial_ao2a5")
@@ -55,26 +85,5 @@ shape = SubResource("CircleShape2D_6m3l7")
 
 [node name="Camera2D" type="Camera2D" parent="Pelota" unique_id=423037637]
 
-[node name="Arco" type="StaticBody2D" parent="." unique_id=2023862155]
-
-[node name="Sprite2D" type="Sprite2D" parent="Arco" unique_id=1571050628]
-position = Vector2(991, 556)
-scale = Vector2(0.12203479, 0.13958333)
-texture = ExtResource("3_j3hdo")
-
-[node name="Línea de gol" type="CollisionShape2D" parent="Arco" unique_id=481184479]
-shape = SubResource("SegmentShape2D_j3hdo")
-script = ExtResource("5_enakv")
-
-[node name="Travesaño" type="CollisionShape2D" parent="Arco" unique_id=1059848623]
-position = Vector2(956, 399.50003)
-rotation = 0.069813155
-shape = SubResource("RectangleShape2D_e371r")
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Arco" unique_id=573582800]
-position = Vector2(1069.3862, 563.52203)
-rotation = -0.20943952
-scale = Vector2(0.99999994, 0.99999994)
-shape = SubResource("RectangleShape2D_enakv")
-
-[connection signal="tree_entered" from="." to="Arco/Línea de gol" method="_on_node_2d_tree_entered"]
+[connection signal="tree_entered" from="." to="Arco/Zona de gol/Línea de gol" method="_on_node_2d_tree_entered"]
+[connection signal="body_entered" from="Arco/Zona de gol" to="Arco/Zona de gol" method="_on_zona_de_gol_body_entered"]
