@@ -1,3 +1,45 @@
 [gd_scene format=3 uid="uid://b76ewgdomagqo"]
 
+[ext_resource type="Texture2D" uid="uid://bs54mk6cfwtxp" path="res://Dinosaurio normal.png" id="1_0e48y"]
+[ext_resource type="Texture2D" uid="uid://dmvsgfviu7c8s" path="res://Blanco.png" id="1_epypp"]
+[ext_resource type="Texture2D" uid="uid://cgjykun28l2ir" path="res://Piso.png" id="2_epypp"]
+[ext_resource type="Script" uid="uid://bk2wxe4af16xa" path="res://parallax_2d.gd" id="3_0hol4"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_epypp"]
+size = Vector2(40, 44)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_0hol4"]
+size = Vector2(1151, 20)
+
 [node name="Node2D" type="Node2D" unique_id=72278472]
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1481418469]
+position = Vector2(-291, -8)
+scale = Vector2(1173, 665.99994)
+texture = ExtResource("1_epypp")
+
+[node name="Mi personaje" type="CharacterBody2D" parent="." unique_id=369870472]
+position = Vector2(192, 406)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Mi personaje" unique_id=973314436]
+position = Vector2(4, -13)
+shape = SubResource("RectangleShape2D_epypp")
+
+[node name="Sprite" type="Sprite2D" parent="Mi personaje" unique_id=450029375]
+position = Vector2(4, -13)
+texture = ExtResource("1_0e48y")
+
+[node name="Piso" type="StaticBody2D" parent="." unique_id=2092303555]
+position = Vector2(-20, 417)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Piso" unique_id=243541303]
+position = Vector2(595.5, 13)
+shape = SubResource("RectangleShape2D_0hol4")
+
+[node name="Parallax2D" type="Parallax2D" parent="." unique_id=138693275]
+repeat_size = Vector2(2400, 0)
+script = ExtResource("3_0hol4")
+
+[node name="Sprite 1" type="Sprite2D" parent="Parallax2D" unique_id=76245756]
+position = Vector2(1197, 419)
+texture = ExtResource("2_epypp")
