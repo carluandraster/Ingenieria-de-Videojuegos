@@ -1,45 +1,120 @@
 [gd_scene format=3 uid="uid://b76ewgdomagqo"]
 
-[ext_resource type="Texture2D" uid="uid://bs54mk6cfwtxp" path="res://Dinosaurio normal.png" id="1_0e48y"]
 [ext_resource type="Texture2D" uid="uid://dmvsgfviu7c8s" path="res://Blanco.png" id="1_epypp"]
+[ext_resource type="Script" uid="uid://dv5xk5pmqks6g" path="res://node_2d.gd" id="1_rj586"]
+[ext_resource type="Script" uid="uid://d1qbo6nec8xr3" path="res://mi_personaje.gd" id="2_d21ai"]
 [ext_resource type="Texture2D" uid="uid://cgjykun28l2ir" path="res://Piso.png" id="2_epypp"]
+[ext_resource type="Texture2D" uid="uid://cx4irjbrv36ne" path="res://Dino agachado 1.png" id="2_kdubu"]
 [ext_resource type="Script" uid="uid://bk2wxe4af16xa" path="res://parallax_2d.gd" id="3_0hol4"]
+[ext_resource type="Texture2D" uid="uid://dewjm07l1w1kt" path="res://Dino muerto con borde.png" id="3_d21ai"]
+[ext_resource type="Texture2D" uid="uid://dyr36gwl32bfs" path="res://dinosaurios.png" id="4_rj586"]
+[ext_resource type="Texture2D" uid="uid://bs54mk6cfwtxp" path="res://Dinosaurio normal.png" id="7_4d7sh"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_epypp"]
-size = Vector2(40, 44)
+size = Vector2(40, 45)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_kdubu"]
+atlas = ExtResource("4_rj586")
+region = Rect2(413, 0, 59, 53)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_d21ai"]
+atlas = ExtResource("2_kdubu")
+region = Rect2(0, 0, 59, 49)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ir8iy"]
+atlas = ExtResource("3_d21ai")
+region = Rect2(0, 0, 44, 47)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0h7mo"]
+atlas = ExtResource("7_4d7sh")
+region = Rect2(0, 0, 44, 47)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_hqns4"]
+atlas = ExtResource("4_rj586")
+region = Rect2(150, 0, 50, 53)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_x0ka3"]
+atlas = ExtResource("4_rj586")
+region = Rect2(200, 0, 50, 53)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_0h7mo"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_kdubu")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_d21ai")
+}],
+"loop": true,
+"name": &"Agachado",
+"speed": 10.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ir8iy")
+}],
+"loop": true,
+"name": &"Muerto",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_0h7mo")
+}],
+"loop": true,
+"name": &"Salto",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_hqns4")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_x0ka3")
+}],
+"loop": true,
+"name": &"default",
+"speed": 10.0
+}]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_0hol4"]
 size = Vector2(1151, 20)
 
 [node name="Node2D" type="Node2D" unique_id=72278472]
+script = ExtResource("1_rj586")
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=1481418469]
-position = Vector2(-291, -8)
+position = Vector2(-10, -39)
 scale = Vector2(1173, 665.99994)
 texture = ExtResource("1_epypp")
 
 [node name="Mi personaje" type="CharacterBody2D" parent="." unique_id=369870472]
-position = Vector2(192, 406)
+position = Vector2(169, 391)
+script = ExtResource("2_d21ai")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Mi personaje" unique_id=973314436]
-position = Vector2(4, -13)
+position = Vector2(2, -20.5)
 shape = SubResource("RectangleShape2D_epypp")
 
-[node name="Sprite" type="Sprite2D" parent="Mi personaje" unique_id=450029375]
-position = Vector2(4, -13)
-texture = ExtResource("1_0e48y")
+[node name="SpriteAnimado" type="AnimatedSprite2D" parent="Mi personaje" unique_id=1261961452]
+position = Vector2(3, -19)
+sprite_frames = SubResource("SpriteFrames_0h7mo")
+animation = &"Salto"
+autoplay = "default"
 
 [node name="Piso" type="StaticBody2D" parent="." unique_id=2092303555]
-position = Vector2(-20, 417)
+position = Vector2(-20, 391)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Piso" unique_id=243541303]
 position = Vector2(595.5, 13)
 shape = SubResource("RectangleShape2D_0hol4")
 
 [node name="Parallax2D" type="Parallax2D" parent="." unique_id=138693275]
+scroll_offset = Vector2(-23, 392)
 repeat_size = Vector2(2400, 0)
 script = ExtResource("3_0hol4")
 
 [node name="Sprite 1" type="Sprite2D" parent="Parallax2D" unique_id=76245756]
-position = Vector2(1197, 419)
+position = Vector2(1225, 0)
 texture = ExtResource("2_epypp")
