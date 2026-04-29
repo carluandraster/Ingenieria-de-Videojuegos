@@ -9,6 +9,10 @@
 [ext_resource type="Texture2D" uid="uid://dewjm07l1w1kt" path="res://Dino muerto con borde.png" id="3_d21ai"]
 [ext_resource type="Texture2D" uid="uid://dyr36gwl32bfs" path="res://dinosaurios.png" id="4_rj586"]
 [ext_resource type="Texture2D" uid="uid://bs54mk6cfwtxp" path="res://Dinosaurio normal.png" id="7_4d7sh"]
+[ext_resource type="Script" uid="uid://by5m3esqghr6u" path="res://state.gd" id="8_ir8iy"]
+[ext_resource type="Script" uid="uid://cbiritt8hxqot" path="res://default_state.gd" id="9_hqns4"]
+[ext_resource type="Script" uid="uid://c3up36p2yd2yv" path="res://salto_state.gd" id="10_x0ka3"]
+[ext_resource type="Script" uid="uid://ce3qtayex1dmf" path="res://agachado_state.gd" id="11_0h7mo"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_epypp"]
 size = Vector2(40, 45)
@@ -84,7 +88,7 @@ size = Vector2(1151, 20)
 [node name="Node2D" type="Node2D" unique_id=72278472]
 script = ExtResource("1_rj586")
 
-[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1481418469]
+[node name="Fondo" type="Sprite2D" parent="." unique_id=1481418469]
 position = Vector2(-10, -39)
 scale = Vector2(1173, 665.99994)
 texture = ExtResource("1_epypp")
@@ -102,6 +106,18 @@ position = Vector2(3, -19)
 sprite_frames = SubResource("SpriteFrames_0h7mo")
 animation = &"Salto"
 autoplay = "default"
+
+[node name="State" type="Node" parent="Mi personaje" unique_id=1177057340]
+script = ExtResource("8_ir8iy")
+
+[node name="DefaultState" type="Node" parent="Mi personaje/State" unique_id=1825967501]
+script = ExtResource("9_hqns4")
+
+[node name="SaltoState" type="Node" parent="Mi personaje/State" unique_id=1965077009]
+script = ExtResource("10_x0ka3")
+
+[node name="AgachadoState" type="Node" parent="Mi personaje/State" unique_id=1372618488]
+script = ExtResource("11_0h7mo")
 
 [node name="Piso" type="StaticBody2D" parent="." unique_id=2092303555]
 position = Vector2(-20, 391)
