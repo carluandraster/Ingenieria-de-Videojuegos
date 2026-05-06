@@ -7,6 +7,7 @@
 [ext_resource type="Texture2D" uid="uid://cx4irjbrv36ne" path="res://Dino agachado 1.png" id="2_kdubu"]
 [ext_resource type="Script" uid="uid://bk2wxe4af16xa" path="res://parallax_2d.gd" id="3_0hol4"]
 [ext_resource type="Texture2D" uid="uid://dewjm07l1w1kt" path="res://Dino muerto con borde.png" id="3_d21ai"]
+[ext_resource type="Script" uid="uid://ds0o1s5xim56c" path="res://state_factory.gd" id="4_nr8wp"]
 [ext_resource type="Texture2D" uid="uid://dyr36gwl32bfs" path="res://dinosaurios.png" id="4_rj586"]
 [ext_resource type="Texture2D" uid="uid://bs54mk6cfwtxp" path="res://Dinosaurio normal.png" id="7_4d7sh"]
 [ext_resource type="Script" uid="uid://by5m3esqghr6u" path="res://state.gd" id="8_ir8iy"]
@@ -96,6 +97,9 @@ texture = ExtResource("1_epypp")
 [node name="Mi personaje" type="CharacterBody2D" parent="." unique_id=369870472]
 position = Vector2(169, 391)
 script = ExtResource("2_d21ai")
+
+[node name="StateFactory" type="Node" parent="Mi personaje" unique_id=1697953551]
+script = ExtResource("4_nr8wp")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Mi personaje" unique_id=973314436]
 position = Vector2(2, -20.5)

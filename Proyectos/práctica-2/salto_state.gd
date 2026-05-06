@@ -7,11 +7,12 @@ func check_state() -> void:
 		self.exit()
 	
 func enter() -> void:
-	self.personaje.animated_sprite.play(self.personaje.SALTO_STATE)
+	self.personaje.velocity.y = Personaje.JUMP_VELOCITY
+	self.personaje.animated_sprite.play(self.personaje.SALTO)
 
 func exit() -> void:
 	self.personaje.velocity.y = 0
-	self.personaje.estado = self.personaje.DEFAULT_STATE
+	self.personaje.set_estado(personaje.DEFAULT)
 
 func update(delta: float) -> void:
 	self.personaje.velocity += self.personaje.get_gravity() * delta

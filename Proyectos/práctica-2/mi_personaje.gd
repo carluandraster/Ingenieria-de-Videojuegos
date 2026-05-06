@@ -4,32 +4,29 @@ class_name Personaje
 
 const SPEED = 300.0
 const JUMP_VELOCITY = -400.0
-const DEFAULT_STATE = "default"
-const AGACHADO_STATE = "Agachado"
-const SALTO_STATE = "Salto"
+const DEFAULT = "default"
+const AGACHADO = "Agachado"
+const SALTO = "Salto"
+var DEFAULT_STATE = StateFactory.crear_estado(DEFAULT, self)
+var AGACHADO_STATE = StateFactory.crear_estado(AGACHADO, self)
+var SALTO_STATE = StateFactory.crear_estado(SALTO, self)
 
 var estado = DEFAULT_STATE
 @onready var animated_sprite = $SpriteAnimado
 var muerto = false
 
-func _physics_process(delta: float) -> void:
-	animated_sprite.play(estado)
-	match estado:
-		DEFAULT_STATE:
-			if Input.is_action_pressed("ui_down"):
-				estado = AGACHADO_STATE
-			elif Input.is_action_just_pressed("ui_up"):
-				velocity.y = JUMP_VELOCITY
-				estado = SALTO_STATE
-		AGACHADO_STATE:
-			if not Input.is_action_pressed("ui_down"):
-				estado = DEFAULT_STATE
-		SALTO_STATE:
-			velocity += get_gravity() * delta
-			if is_on_floor():
-				velocity.y = 0
-				estado = DEFAULT_STATE
-	move_and_slide()
+func set_estado(nombre_estado: String) -> void:
+	match nombre_estado:
+		DEFAULT:
+			estado = DEFAULT_STATE
+		AGACHADO:
+			estado = AGACHADO_STATE
+		SALTO:
+			estado = SALTO_STATE
+	estado.enter()
 
-func _input_event(viewport: Viewport, event: InputEvent, shape_idx: int) -> void:
-	pass # Llamo a chek_state
+func _physics_process(delta: float) -> void:
+	estado.update(delta)
+
+func _input(event: InputEvent) -> void:
+	estado.check_state()
